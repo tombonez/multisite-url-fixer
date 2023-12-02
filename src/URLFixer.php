@@ -4,9 +4,10 @@ namespace Roots\Bedrock;
 
 /**
  * Class URLFixer
+ *
  * @package Roots\Bedrock
- * @author Roots
- * @link https://roots.io/
+ * @author  Roots
+ * @link    https://roots.io/
  */
 class URLFixer
 {
@@ -21,39 +22,39 @@ class URLFixer
     }
 
     /**
-     * Ensure that home URL does not contain the /wp subdirectory.
+     * Ensure that home URL does not contain the /cms subdirectory.
      *
-     * @param string $value the unchecked home URL
+     * @param  string $value the unchecked home URL
      * @return string the verified home URL
      */
     public function fixHomeURL($value)
     {
-        if (substr($value, -3) === '/wp') {
+        if (substr($value, -3) === '/cms') {
             $value = substr($value, 0, -3);
         }
         return $value;
     }
 
     /**
-     * Ensure that site URL contains the /wp subdirectory.
+     * Ensure that site URL contains the /cms subdirectory.
      *
-     * @param string $url the unchecked site URL
+     * @param  string $url the unchecked site URL
      * @return string the verified site URL
      */
     public function fixSiteURL($url)
     {
-        if (substr($url, -3) !== '/wp' && (is_main_site() || is_subdomain_install())) {
-            $url .= '/wp';
+        if (substr($url, -3) !== '/cms' && (is_main_site() || is_subdomain_install())) {
+            $url .= '/cms';
         }
         return $url;
     }
 
     /**
-     * Ensure that the network site URL contains the /wp subdirectory.
+     * Ensure that the network site URL contains the /cms subdirectory.
      *
-     * @param string $url    the unchecked network site URL with path appended
-     * @param string $path   the path for the URL
-     * @param string $scheme the URL scheme
+     * @param  string $url    the unchecked network site URL with path appended
+     * @param  string $path   the path for the URL
+     * @param  string $scheme the URL scheme
      * @return string the verified network site URL
      */
     public function fixNetworkSiteURL($url, $path, $scheme)
@@ -61,8 +62,8 @@ class URLFixer
         $path = ltrim($path, '/');
         $url = substr($url, 0, strlen($url) - strlen($path));
 
-        if (substr($url, -3) !== 'wp/') {
-            $url .= 'wp/';
+        if (substr($url, -3) !== 'cms/') {
+            $url .= 'cms/';
         }
 
         return $url . $path;
